@@ -2,8 +2,9 @@
 Termius unlocks local pro v 
 (From the author @Maasea)
 
+Surge4:
+http-response https:\/\/api\.termius\.com\/api\/v3\/bulk\/account\/ requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/icenoir/sgmodule/master/Termius/TermiusPro.js
 
-http-response https:\/\/api\.termius\.com\/api\/v3\/bulk\/account\/ requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/icenoir/sgmodule/master/Termius/Termius.js
 
 
 Surge & QX MITM = api.termius.com
