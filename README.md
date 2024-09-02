@@ -9,5 +9,4 @@
 - 增加 YouTube (Music) 后台播放
 - 增加 YouTube Music 歌词翻译
 
-[<img src="./assets/button.svg" alt="一键安装"  height="35"/>](https://intradeus.github.io/http-protocol-redirector?r=surge:///install-module?url=https%3A%2F%2Fraw.githubusercontent.com%2FMaasea%2Fsgmodule%2Fmaster%2FYouTube.Enhance.sgmodule)
 
