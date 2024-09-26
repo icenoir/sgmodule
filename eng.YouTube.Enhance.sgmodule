@@ -1,20 +1,19 @@
-#!nome=Miglioramento Youtube (e Music)
-#!descrizione=Applicabile a Youtube e Youtube Music
-#!argomenti=Blocca pulsante caricamento:true,Blocca pulsante clip:true,Lingua traduzione sottotitoli:off,Lingua traduzione testi:it,Motore esecuzione script:jsc,Abilita modalità debug:false
-#!descrizione-argomenti=- Parametri di blocco: [true, false] \n- Parametri di traduzione: [codice lingua, off] \n- Motore script: [auto, jsc, webview]\n\n1. I codici lingua seguono quelli di Google Translate, inserire 'off' per disabilitare la traduzione\n2. Si raccomanda di usare il motore jsc, ma è possibile passare a webview per provare nuove funzionalità di Surge\n3. Abilitare la modalità debug per ottenere più log
+#!name=Youtube (Music) Enhance
+#!desc=Applicable to Youtube & Youtube Music
+#!arguments=Block upload button:true,Block clip button:true,Subtitle translation language:off,Lyrics translation language:zh-Hans,Script execution engine:jsc,Enable debug mode:false
+#!arguments-desc=- Block parameters: [true, false] \n- Translation parameters: [language code, off] \n- Script engine: [auto, jsc, webview]\n\n1. Language codes follow Google Translate Languages Codes, fill in 'off' to disable translation\n2. Recommended to use jsc engine, but you can still switch to webview to experience new Surge features\n3. Enable debug mode to output more logs
+# > Note
+# Youtube picture-in-picture and background playback are turned off separately in the client
+#   - Settings -> General -> Picture-in-Picture
+#   - Settings -> Background Play and Download -> Background Play
 
-# > Nota
-# La riproduzione Picture-in-Picture e in background di Youtube si attivano separatamente nell'app
-#   - Impostazioni -> Generale -> Picture-in-Picture
-#   - Impostazioni -> Riproduzione in background e download -> Riproduzione in background
-
-[Regola]
+[Rule]
 AND,((DOMAIN-SUFFIX,googlevideo.com), (PROTOCOL,UDP)),REJECT
 AND,((DOMAIN,youtubei.googleapis.com), (PROTOCOL,UDP)),REJECT
 
 [Script]
-youtube.richiesta = type=http-request,pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|reel\/reel_watch_sequence|get_watch),requires-body=1,max-size=-1,binary-body-mode=1,engine={{{Motore esecuzione script}}},script-path=https://raw.githubusercontent.com/icenoir/sgmodule/master/Script/Youtube/dist/youtube.request.preview.js
-youtube.risposta = type=http-response,pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch),requires-body=1,max-size=-1,binary-body-mode=1,engine={{{Motore esecuzione script}}},script-path=https://raw.githubusercontent.com/icenoir/sgmodule/master/Script/Youtube/dist/youtube.response.preview.js,argument="{"lyricLang":"{{{Lingua traduzione testi}}}","captionLang":"off","blockUpload":{{{Blocca pulsante caricamento}}},"blockImmersive":{{{Blocca pulsante clip}}},"debug":{{{Abilita modalità debug}}}}"
+youtube.request = type=http-request,pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|reel\/reel_watch_sequence|get_watch),requires-body=1,max-size=-1,binary-body-mode=1,engine={{{Script execution engine}}},script-path=https://raw.githubusercontent.com/icenoir/sgmodule/master/Script/Youtube/dist/youtube.request.preview.js
+youtube.response = type=http-response,pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch),requires-body=1,max-size=-1,binary-body-mode=1,engine={{{Script execution engine}}},script-path=https://raw.githubusercontent.com/icenoir/sgmodule/master/Script/Youtube/dist/youtube.response.preview.js,argument="{"lyricLang":"{{{Lyrics translation language}}}","captionLang":"off","blockUpload":{{{Block upload button}}},"blockImmersive":{{{Block clip button}}},"debug":{{{Enable debug mode}}}}"
 
 [Map Local]
 ^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad data-type=text data=""
